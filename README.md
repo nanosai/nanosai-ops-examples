@@ -1,5 +1,10 @@
-# Nanosai Ops Examples
+# Nanosai Ops Examples & Experiments
 Nanosai Ops Examples contains examples showing how to use the various Nanosai Ops toolkits.
+
+Nanosai Ops Examples is also used to experiment with different types of solutions (designs) for various problems.
+Be aware, that everything under the package "com.nanosai.examples" serve as currently valid ways of doing XYZ.
+Contrarily, everything under the "com.nanosai.experiments" is still experimental. Experiments may not be the best way to do XYZ,
+but may just be an exploration of a certain design that turned out not to work well. Experiments may also change etc.
 
 Nanosai Ops is a collection of toolkits (for Java) designed for implementing fast, scalable, robust distributed systems using
 advanced techniques such as asynchronous communication, non-blocking IO, samethreaded separate state concurrency model,
