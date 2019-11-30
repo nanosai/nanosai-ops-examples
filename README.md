@@ -10,7 +10,7 @@ minimal garbage collection etc.
 Currently, the suite of toolkits in Nanosai Ops consists of:
 
  - [Mem Ops](https://github.com/nanosai/mem-ops-java)
- - [Thread Ops}(https://github.com/nanosai/thread-ops-java)
+ - [Thread Ops](https://github.com/nanosai/thread-ops-java)
  - [RION Ops](https://github.com/nanosai/rion-ops-java)
  - [Stream Ops](https://github.com/nanosai/stream-ops-java)
  - [Net Ops](https://github.com/nanosai/net-ops-java)
