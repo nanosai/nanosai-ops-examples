@@ -10,14 +10,16 @@ import com.nanosai.netops.tcp.TcpSocket;
 import com.nanosai.rionops.rion.write.RionWriter;
 
 import java.io.IOException;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 public class EchoClient {
 
     public static void main(String[] args) throws IOException {
 
-        final TcpMessagePort socketsPort = createTcpMessagePort(new ArrayBlockingQueue(1024));
+        NetOpsClientBuilder clientBuilder = new NetOpsClientBuilder();
+
+        //final TcpMessagePort socketsPort = createTcpMessagePort(new ArrayBlockingQueue(1024));
+        final TcpMessagePort socketsPort = clientBuilder.createTcpMessagePort();
 
         TcpSocket tcpSocket = socketsPort.addSocket("localhost", 1111);
 

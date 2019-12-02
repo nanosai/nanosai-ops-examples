@@ -2,23 +2,18 @@ package com.nanosai.examples.netops.server.echo;
 
 import com.nanosai.memops.bytes.BytesAllocatorAutoDefrag;
 import com.nanosai.netops.tcp.IMessageReaderFactory;
-import com.nanosai.netops.tcp.IapMessageReaderFactory;
 import com.nanosai.netops.tcp.TcpMessagePort;
 import com.nanosai.netops.tcp.TcpServer;
 
 import java.io.IOException;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-public class NetOpsServerBuilder {
+public class NetOpsServerBuilder extends NetOpsBuilderBase {
 
     public static final int DEFAULT_SOCKET_QUEUE_CAPACITY = 1024;
-    public static final int DEFAULT_IAP_TCP_PORT          = 1111;
 
-    public static final int DEFAULT_INBOUND_MESSAGE_BYTES_ALLOCATOR_CAPATICY  = 16 * 1024 * 1024;
-    public static final int DEFAULT_OUTBOUND_MESSAGE_BYTES_ALLOCATOR_CAPATICY = 16 * 1024 * 1024;
-
-    private BlockingQueue socketQueue = null;
+    public static final int DEFAULT_INBOUND_MESSAGE_BYTES_ALLOCATOR_CAPACITY  = 16 * 1024 * 1024;
+    public static final int DEFAULT_OUTBOUND_MESSAGE_BYTES_ALLOCATOR_CAPACITY = 16 * 1024 * 1024;
 
     private TcpServer tcpServer = null;
 
@@ -32,15 +27,6 @@ public class NetOpsServerBuilder {
         createSocketQueue(DEFAULT_SOCKET_QUEUE_CAPACITY);
     }
 
-    public BlockingQueue createSocketQueue(int capacity) {
-        this.socketQueue = new ArrayBlockingQueue(capacity);
-        return this.socketQueue;
-    }
-
-    public BlockingQueue getSocketQueue() {
-        return this.socketQueue;
-    }
-
     public BlockingQueue getOrCreateSocketQueue() {
         if(this.socketQueue != null) {
             return this.socketQueue;
@@ -48,15 +34,6 @@ public class NetOpsServerBuilder {
 
         return createSocketQueue(DEFAULT_SOCKET_QUEUE_CAPACITY);
     }
-
-    public BlockingQueue getOrCreateSocketQueue(int capacity) {
-        if(this.socketQueue != null) {
-            return this.socketQueue;
-        }
-
-        return createSocketQueue(capacity);
-    }
-
 
     public TcpServer createTcpServer() {
         return createTcpServer(DEFAULT_IAP_TCP_PORT);
@@ -72,70 +49,13 @@ public class NetOpsServerBuilder {
         return this.tcpServer;
     }
 
-
-    public IMessageReaderFactory setMessageReaderFactory(IMessageReaderFactory messageReaderFactory) {
-        this.messageReaderFactory = messageReaderFactory;
-        return this.messageReaderFactory;
-    }
-
-    public IMessageReaderFactory getOrCreateMessageReaderFactory() {
-        if(this.messageReaderFactory != null) {
-            return this.messageReaderFactory;
-        }
-
-        return setMessageReaderFactory(new IapMessageReaderFactory());
-    }
-
-
-    public BytesAllocatorAutoDefrag setInboundMessageBytesAllocator(BytesAllocatorAutoDefrag bytesAllocator) {
-        this.inboundMessageBytesAllocator = bytesAllocator;
-        return this.inboundMessageBytesAllocator;
-    }
-
-    public BytesAllocatorAutoDefrag createInboundMessageBytesAllocator(int capacity) {
-        return setInboundMessageBytesAllocator(new BytesAllocatorAutoDefrag(new byte[capacity]));
-    }
-
-    public BytesAllocatorAutoDefrag getInboundMessageBytesAllocator() {
-        return this.inboundMessageBytesAllocator;
-    }
-
     public BytesAllocatorAutoDefrag getOrCreateInboundMessageBytesAllocator() {
-        return getOrCreateInboundMessageBytesAllocator(DEFAULT_INBOUND_MESSAGE_BYTES_ALLOCATOR_CAPATICY);
-    }
-
-    public BytesAllocatorAutoDefrag getOrCreateInboundMessageBytesAllocator(int capacity) {
-        if(this.inboundMessageBytesAllocator != null) {
-            return this.inboundMessageBytesAllocator;
-        }
-        return createInboundMessageBytesAllocator(capacity);
-    }
-
-
-    public BytesAllocatorAutoDefrag setOutboundMessageBytesAllocator(BytesAllocatorAutoDefrag bytesAllocator) {
-        this.outboundMessageBytesAllocator = bytesAllocator;
-        return this.outboundMessageBytesAllocator;
-    }
-
-    public BytesAllocatorAutoDefrag createOutboundMessageBytesAllocator(int capacity) {
-        return setOutboundMessageBytesAllocator(new BytesAllocatorAutoDefrag(new byte[capacity]));
-    }
-
-    public BytesAllocatorAutoDefrag getOutboundMessageBytesAllocator() {
-        return this.outboundMessageBytesAllocator;
+        return getOrCreateInboundMessageBytesAllocator(DEFAULT_INBOUND_MESSAGE_BYTES_ALLOCATOR_CAPACITY);
     }
 
     public BytesAllocatorAutoDefrag getOrCreateOutboundMessageBytesAllocator() {
-        return getOrCreateOutboundMessageBytesAllocator(DEFAULT_OUTBOUND_MESSAGE_BYTES_ALLOCATOR_CAPATICY);
+        return getOrCreateOutboundMessageBytesAllocator(DEFAULT_OUTBOUND_MESSAGE_BYTES_ALLOCATOR_CAPACITY);
     }
-
-    public BytesAllocatorAutoDefrag getOrCreateOutboundMessageBytesAllocator(int capacity) {
-        if(this.outboundMessageBytesAllocator != null) {
-            return this.outboundMessageBytesAllocator;
-        }
-        return createOutboundMessageBytesAllocator(capacity);
-    }
-
 
     public TcpMessagePort createTcpMessagePort() throws IOException {
         this.tcpMessagePort =

@@ -20,7 +20,7 @@ public class EchoServerThreadLoopCycle implements IThreadLoopCycle {
 
 
     @Override
-    public long run() {
+    public long exec() {
 
         try{
             tcpMessagePort.addSocketsFromSocketQueue();

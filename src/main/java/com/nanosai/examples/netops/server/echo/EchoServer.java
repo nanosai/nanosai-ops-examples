@@ -1,16 +1,14 @@
 package com.nanosai.examples.netops.server.echo;
 
-import com.nanosai.memops.bytes.BytesAllocatorAutoDefrag;
-import com.nanosai.netops.iap.IapMessage;
+import com.nanosai.examples.proactors.IProactor;
+import com.nanosai.examples.proactors.ProactorExecutor;
 import com.nanosai.netops.tcp.BytesBatch;
-import com.nanosai.netops.tcp.IapMessageReaderFactory;
 import com.nanosai.netops.tcp.TcpMessagePort;
 import com.nanosai.netops.tcp.TcpServer;
+import com.nanosai.threadops.threadloops.IThreadLoopCycle;
 import com.nanosai.threadops.threadloops.ThreadLoop;
 
 import java.io.IOException;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 
 public class EchoServer {
 
@@ -20,17 +18,24 @@ public class EchoServer {
 
         startTcpServer(serverBuilder);
 
-        TcpMessagePort tcpMessagePort = createTcpMessagePort(serverBuilder);
+        TcpMessagePort tcpMessagePort = serverBuilder.createTcpMessagePort();
 
         BytesBatch incomingMessageBatch = new BytesBatch(16, 64);
 
         EchoServerThreadLoopCycle echoServerThreadLoopCycle =
                 new EchoServerThreadLoopCycle(tcpMessagePort, incomingMessageBatch);
 
+        IProactor proactor = () -> {
+            echoServerThreadLoopCycle.exec();
+            return 0;
+        };
+
+        ProactorExecutor proactorExecutor = new ProactorExecutor(proactor);
+
         // echo server message processing loop:
 
         while(true) {
-            echoServerThreadLoopCycle.run();
+            proactorExecutor.exec();
         }
 
 
@@ -60,9 +65,6 @@ public class EchoServer {
         .start();
     }
 
-    private static TcpMessagePort createTcpMessagePort(NetOpsServerBuilder serverBuilder) throws IOException {
-        return serverBuilder.createTcpMessagePort();
-    }
 
 
 }
