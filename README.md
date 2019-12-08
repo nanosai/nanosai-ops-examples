@@ -31,7 +31,7 @@ The Nanosai Ops toolkit design goals are:
  - High performance
  - High scalability
  - Robustness
- - Architectural flexibility
+ - Architectural + design flexibility
  - Use case versatility
  - High configurability
  - Coherent ecosystem
@@ -41,7 +41,7 @@ Achieving all of these goals simultaneously is not easy. We have had to design a
 from scratch to align with these goals.
 
 Obviously we have had to make compromises between some of these design goals. For instance, sometimes ease of use
-conflicts with configurablity, architectural flexibility etc. Sometimes performance conflicts with flexibility too.
+conflicts with configurability, architectural flexibility etc. Sometimes performance conflicts with flexibility too.
 And sometimes write performance conflicts with read performance. In these cases we have tried to make sensible
 compromises between the goals - e.g. by providing sensible default behaviours and configurations.
 

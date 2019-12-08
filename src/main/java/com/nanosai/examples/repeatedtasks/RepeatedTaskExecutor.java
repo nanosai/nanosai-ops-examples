@@ -1,12 +1,12 @@
-package com.nanosai.examples.proactors;
+package com.nanosai.examples.repeatedtasks;
 
-public class ProactorExecutor {
+public class RepeatedTaskExecutor {
 
-    private IProactor[] proactors                   = null;
+    private IRepeatedTask[] proactors                   = null;
     private long[]      proactorsExecutionTimeNanos = null;
 
 
-    public ProactorExecutor(IProactor ... proactors) {
+    public RepeatedTaskExecutor(IRepeatedTask... proactors) {
         this.proactors = proactors;
         this.proactorsExecutionTimeNanos = new long[this.proactors.length];
     }
