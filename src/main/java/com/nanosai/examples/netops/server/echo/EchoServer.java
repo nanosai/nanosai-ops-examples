@@ -1,10 +1,10 @@
 package com.nanosai.examples.netops.server.echo;
 
-import com.nanosai.examples.repeatedtasks.IRepeatedTask;
-import com.nanosai.examples.repeatedtasks.RepeatedTaskExecutor;
 import com.nanosai.netops.tcp.BytesBatch;
 import com.nanosai.netops.tcp.TcpMessagePort;
 import com.nanosai.netops.tcp.TcpServer;
+import com.nanosai.threadops.threadloops.IRepeatedTask;
+import com.nanosai.threadops.threadloops.RepeatedTaskExecutorPausable;
 import com.nanosai.threadops.threadloops.ThreadLoop;
 
 import java.io.IOException;
@@ -29,7 +29,7 @@ public class EchoServer {
             return 0;
         };
 
-        RepeatedTaskExecutor repeatedTaskExecutor = new RepeatedTaskExecutor(proactor);
+        RepeatedTaskExecutorPausable repeatedTaskExecutor = new RepeatedTaskExecutorPausable(proactor);
 
         // echo server message processing loop:
 

@@ -3,11 +3,11 @@ package com.nanosai.examples.netops.server.echo;
 import com.nanosai.netops.iap.IapMessage;
 import com.nanosai.netops.tcp.BytesBatch;
 import com.nanosai.netops.tcp.TcpMessagePort;
-import com.nanosai.threadops.threadloops.IThreadLoopCycle;
+import com.nanosai.threadops.threadloops.IRepeatedTask;
 
 import java.io.IOException;
 
-public class EchoServerThreadLoopCycle implements IThreadLoopCycle {
+public class EchoServerThreadLoopCycle implements IRepeatedTask {
 
 
     private TcpMessagePort tcpMessagePort = null;

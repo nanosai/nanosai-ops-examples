@@ -1,12 +1,13 @@
 package com.nanosai.examples.repeatedtasks;
 
 import com.nanosai.threadops.threadloops.ThreadLoopPausable;
+import com.nanosai.threadops.threadloops.RepeatedTaskExecutorPausable;
 
 public class RepeatedTasksExamples {
 
     public static void main(String[] args) throws InterruptedException {
 
-        RepeatedTaskExecutor executor = new RepeatedTaskExecutor(
+        RepeatedTaskExecutorPausable executor = new RepeatedTaskExecutorPausable(
                  () -> { System.out.println("Blabla"); return 1_000_000_000; }
                 ,() -> { System.out.println("Second"); return   400_000_000; }
                 );
