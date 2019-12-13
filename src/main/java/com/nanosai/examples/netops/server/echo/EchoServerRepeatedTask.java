@@ -3,17 +3,16 @@ package com.nanosai.examples.netops.server.echo;
 import com.nanosai.netops.iap.IapMessage;
 import com.nanosai.netops.tcp.BytesBatch;
 import com.nanosai.netops.tcp.TcpMessagePort;
-import com.nanosai.threadops.threadloops.IRepeatedTask;
+import com.nanosai.threadops.threadloops.IRepeatedTaskPausable;
 
 import java.io.IOException;
 
-public class EchoServerThreadLoopCycle implements IRepeatedTask {
-
+public class EchoServerRepeatedTask implements IRepeatedTaskPausable {
 
     private TcpMessagePort tcpMessagePort = null;
     private BytesBatch incomingMessageBatch = null;
 
-    public EchoServerThreadLoopCycle(TcpMessagePort tcpMessagePort, BytesBatch bytesBatch) {
+    public EchoServerRepeatedTask(TcpMessagePort tcpMessagePort, BytesBatch bytesBatch) {
         this.tcpMessagePort = tcpMessagePort;
         this.incomingMessageBatch = bytesBatch;
     }
@@ -48,14 +47,9 @@ public class EchoServerThreadLoopCycle implements IRepeatedTask {
             incomingMessageBatch.clear();
 
         } catch(IOException e) {
-            System.out.println("Error in EchoServerThreadLoopCycle: " + e.getMessage());
+            System.out.println("Error in EchoServerRepeatedTask: " + e.getMessage());
             e.printStackTrace();
         }
-
-
-
-
-
         return 0;
     }
 }

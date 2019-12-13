@@ -8,13 +8,14 @@ import com.nanosai.netops.tcp.IapMessageReaderFactory;
 import com.nanosai.netops.tcp.TcpMessagePort;
 import com.nanosai.netops.tcp.TcpSocket;
 import com.nanosai.rionops.rion.write.RionWriter;
+import com.nanosai.threadops.threadloops.ThreadLoop;
 
 import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
 
 public class EchoClient {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
 
         NetOpsClientBuilder clientBuilder = new NetOpsClientBuilder();
 
@@ -26,6 +27,21 @@ public class EchoClient {
         RionWriter rionWriter = new RionWriter().setNestedFieldStack(new int[2]);
 
         BytesBatch responses = new BytesBatch(10);
+
+        ThreadLoop threadLoop = new ThreadLoop(new EchoClientRepeatedTask(socketsPort, tcpSocket));
+
+        threadLoop.start();
+
+
+        Thread.sleep(5000);
+
+
+        threadLoop.stop();
+
+
+
+        /*
+
 
         int counter = 0;
         while(true){
@@ -73,6 +89,7 @@ public class EchoClient {
 
             counter++;
         }
+         */
 
         //todo convenience method for MemoryBlock's as destination
     }
