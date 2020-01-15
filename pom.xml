@@ -57,7 +57,7 @@
         <dependency>
             <groupId>com.nanosai</groupId>
             <artifactId>thread-ops</artifactId>
-            <version>0.5.1</version>
+            <version>0.7.0</version>
         </dependency>
 
         <dependency>

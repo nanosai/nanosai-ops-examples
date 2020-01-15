@@ -3,7 +3,7 @@ package com.nanosai.examples.netops.server.echo;
 import com.nanosai.netops.tcp.BytesBatch;
 import com.nanosai.netops.tcp.TcpMessagePort;
 import com.nanosai.netops.tcp.TcpServer;
-import com.nanosai.threadops.threadloops.IRepeatedTaskPausable;
+import com.nanosai.threadops.threadloops.IThreadLoop;
 import com.nanosai.threadops.threadloops.RepeatedTaskExecutorPausable;
 import com.nanosai.threadops.threadloops.ThreadLoop;
 
@@ -43,7 +43,7 @@ public class EchoServer {
 
     }
 
-    private static ThreadLoop startTcpServer(NetOpsServerBuilder serverBuilder) {
+    private static IThreadLoop startTcpServer(NetOpsServerBuilder serverBuilder) {
 
         TcpServer tcpServer = serverBuilder.createTcpServer();
         // create server
@@ -55,7 +55,7 @@ public class EchoServer {
         }
 
         // start threads to run it.
-        return new ThreadLoop(() -> {
+        return new ThreadLoop((threadLoop) -> () -> {
             try {
                 tcpServer.checkForNewInboundConnections();
             } catch (IOException e) {

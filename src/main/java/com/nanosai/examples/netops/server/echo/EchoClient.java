@@ -28,7 +28,7 @@ public class EchoClient {
 
         BytesBatch responses = new BytesBatch(10);
 
-        ThreadLoop threadLoop = new ThreadLoop(new EchoClientRepeatedTask(socketsPort, tcpSocket));
+        ThreadLoop threadLoop = new ThreadLoop((executingThreadLoop) -> new EchoClientRepeatedTask(socketsPort, tcpSocket));
 
         threadLoop.start();
 
